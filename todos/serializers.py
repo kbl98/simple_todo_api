@@ -8,10 +8,11 @@ from rest_framework import serializers
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email']
+        fields = ['id','username']
 
 
 class TodoSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Todo
-        fields = ['created_at', 'title', 'description']
+        user=UserSerializer()
+        class Meta:
+            model = Todo
+            fields = ['created_at', 'title', 'description','user']
