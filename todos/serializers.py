@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from .models import Todo
 from rest_framework import serializers
+from datetime import date
 
 
 
@@ -13,6 +14,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 class TodoSerializer(serializers.HyperlinkedModelSerializer):
         user=UserSerializer()
+        
         class Meta:
             model = Todo
-            fields = ['created_at', 'title', 'description','user']
+            fields = ['created_at', 'title', 'description','user','time_passed']
+
+        
