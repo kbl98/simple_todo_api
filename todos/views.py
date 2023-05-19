@@ -24,12 +24,12 @@ class TodoViewSet(viewsets.ModelViewSet):
     """
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
+    
+    def create(self,request):
+        data=json.loads(request.body)
 
-
-    def create_todo(self,request):
-        
-        todo=Todo.objects.create(title=request.POST.get("title",''),
-                                 description=request.POST.get("description",''),
+        todo=Todo.objects.create(title=data.get("title", ""),
+                                 description=data.get("description", ""),
                                  user=request.user)
         serializedObj=serializers.serialize('json',[todo,])
         return HttpResponse(serializedObj,content_type='application/json')
